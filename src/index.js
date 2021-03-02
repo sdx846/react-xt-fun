@@ -18,12 +18,11 @@ ReactDOM.render(
   <Routers>
     <Switch>
       <Route
-        exact
         path="/home"
         render={(props) =>localStore.getItem("token") ? (<Home {...props} />) : (<Redirect to="/login" />)}
       />
       <Route path="/login" component={Login} />
-      <Redirect exact from="/" to="/home/hello" />
+      <Redirect exact from="/" to="/home/system/role" />
       <Route path="*" component={PageNotFound} />
     </Switch>
   </Routers>,
