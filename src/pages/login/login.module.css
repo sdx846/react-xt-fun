@@ -1,0 +1,37 @@
+.wrapper {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #3655aa;
+}
+
+.formWrapper {
+  width: 500px;
+  padding: 40px;
+  background:  #fff;
+  box-shadow: 0 0 4px  #04d9fa;;
+  border-radius: 24px;
+}
+
+.title {
+  text-align: center;
+  margin-bottom: 40px;
+  font-size: 24px;
+  font-weight: bold;
+  letter-spacing: 4px;
+}
+
+.verifyImg {
+  cursor: pointer;
+  border-radius: 8px;
+}
+:global(.btn-bg){
+  background-color:#5d7ac7;
+  color:#fff;
+}
+:global(.btn-bg:hover){
+  background-color:#7c93cf;
+  color:#fff;
+}
