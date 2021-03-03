@@ -18,6 +18,7 @@ import { routeMenu, RouteConfig } from "../../routerModule/index";
 // import routerList from '../../api/request/userInfo.json'
 
 const { Header, Content, Sider } = Layout;
+type Theme = "light" | "dark";
 
 const Home: React.FC<RouteComponentProps> = ({ history }) => {
   const { loginName, superManager, routerList } = localStore.getItem(
@@ -25,6 +26,7 @@ const Home: React.FC<RouteComponentProps> = ({ history }) => {
   );
   let [collapsed, setCollapsed] = useState(false);
   let [submitLoading, setSubmitLoading] = useState<boolean>(false);
+  let [theme, setTheme] = useState<Theme>("light");
   let [appRoutes, setAppRoutes] = useState<{
     routeList: MenuMapItem[];
     menuList: MenuMapItem[];
@@ -47,7 +49,7 @@ const Home: React.FC<RouteComponentProps> = ({ history }) => {
     });
   };
     return (
-      // <Store.Provider value={}>
+      <Store.Provider value={{ submitLoading, setSubmitLoading, theme, setTheme }}>
         <Layout className={style.layout}>
           <Sider collapsed={collapsed} theme="dark" width="256">
             <div className={style.logo}>
@@ -106,7 +108,7 @@ const Home: React.FC<RouteComponentProps> = ({ history }) => {
             </Content>
           </Layout>
         </Layout>
-      // </Store.Provider>
+      </Store.Provider>
     );
 }
 export default Home;

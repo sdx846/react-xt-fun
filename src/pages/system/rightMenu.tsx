@@ -7,7 +7,7 @@ const RightMenu: FC<RouteComponentProps> = ({ history }) => {
 
 
     return (
-      <div>menu</div>
+      <div>rmenu</div>
     );
   
 }

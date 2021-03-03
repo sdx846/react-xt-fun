@@ -3,8 +3,8 @@
  */
 import React from "react";
 import { MenuMapItem } from "../assets/typings";
-import hello from "./hello";
 import system from "./systemRoute";
+import other from './other';
 
 
 // 手动生成的404路由
@@ -19,8 +19,8 @@ const pageNotFound: MenuMapItem = {
 
 // 将引入的路由模块统一放进数组
 export const routeMenu: MenuMapItem[] = [
-    // hello,
     system, //系统管理
+    other,
     pageNotFound, //404
 ];
 

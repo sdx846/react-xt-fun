@@ -2,7 +2,7 @@ import React, { useState, useEffect,  useContext,FC } from "react";
 import { useLocation, NavLink } from "react-router-dom";
 import { Layout, Avatar, Dropdown, Menu, Breadcrumb, Modal } from "antd";
 import { FormRulesType, MenuMapItem, RouteComponentProps } from "../assets/typings";
-
+import Store from "./store";
 interface CurrentMenu {
     openKeys: string[];
     selectedKeys: string[];
@@ -17,7 +17,7 @@ const MyMenu: FC<{ menuList: MenuMapItem[] }> = ({ menuList }) => {
         openKeys: [],
         selectedKeys: [],
     });
-
+    let { theme } = useContext(Store);
     const onOpenChange = (openKeys) => {
         setCurrentMenu({
             ...currentMenu,
@@ -64,6 +64,7 @@ const MyMenu: FC<{ menuList: MenuMapItem[] }> = ({ menuList }) => {
     return (
         <Menu
             mode="inline"
+            theme={theme}
             onOpenChange={onOpenChange}
             onSelect={({ selectedKeys }) => onSelect(selectedKeys)}
             selectedKeys={currentMenu.selectedKeys}
