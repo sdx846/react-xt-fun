@@ -11,6 +11,7 @@ import {localStore,sessionStore} from "../utils/storage";
 
 NProgress.configure({ easing: "ease", speed: 800, showSpinner: true });
 
+
 const baseURL =
   process.env.NODE_ENV === 'development'
     ? 'https://test.easy-parking.cn/easypark/'
@@ -20,13 +21,25 @@ const axiosInstance = axios.create({
     timeout: 30000,
 });
 
+// 上传图片通用请求体内容
+export const uploadImageData = {
+  fileType: "PICTURE",
+  serviceName: "park-info-service",
+};
+//通用请求headers
+export const headers = {
+  "api-version": "1.0",
+  Authorization: localStore.getItem("token"),
+};
+// 上传图片接口地址
+export const uploadImageURL = baseURL + "common-service/file/upload";
+// 导入电子表格接口地址
+export const uploadExcelURL = baseURL + "park-info-service/admin/parkSpace/importData";
+
 // axios请求拦截
 axiosInstance.interceptors.request.use((config: AxiosRequestConfig) => {
     // 此处若使用引入的header会出现错误，暂未找到解决方案
-    config.headers = {
-        "api-version": "1.0",
-        'authorization': localStore.getItem("token"),
-    };
+    config.headers = headers;
     return config;
 });
 

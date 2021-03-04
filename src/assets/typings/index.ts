@@ -5,7 +5,7 @@ import { TableProps, ColumnsType } from "antd/lib/table";
 import { PaginationProps } from "antd/lib/pagination";
 import { Rule } from "rc-field-form/lib/interface";
 import { FormInstance } from "antd/lib/form";
-// import { IFormType } from "@/components/Conmon/ConmonEdit";
+import { IFormType } from "@/components/formEdit";
 // import { ListItems } from "@/hooks/useSelectList";
 import { RouteComponentProps } from "react-router-dom";
 import { LazyExoticComponent, FC } from "react";
@@ -30,5 +30,5 @@ interface MenuMapItem {
   parentId?: string;
 }
 // export { IFormType, ListItems, RouteComponentProps };
-export type { MenuMapItem,RouteComponentProps,TableProps, ColumnsType, PaginationProps, FormRulesType,Rule, FormInstance };
+export type { IFormType, MenuMapItem,RouteComponentProps,TableProps, ColumnsType, PaginationProps, FormRulesType,Rule, FormInstance };
 

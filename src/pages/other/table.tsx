@@ -1,85 +1,183 @@
 import React, { useState, useEffect, FC } from "react";
-import { Table, Tag, Space } from 'antd';
+import { Table, Tag, Space,Button } from "antd";
 import { TableProps, ColumnsType } from "antd/lib/table";
 import { PaginationProps } from "antd/lib/pagination";
 import { MenuUnfoldOutlined, MenuFoldOutlined } from "@ant-design/icons";
-import { FormRulesType, RouteComponentProps} from "../../assets/typings";
+import TableSearch from "../../components/tableSearch";
+import useSearchParams from '../../hooks/searchParams'
+import * as tableApi from '../../api/request/table';
+import MyImage from '../../components/image';
+import {
+  FormRulesType,
+  RouteComponentProps,
+  IFormType,
+} from "../../assets/typings";
+import CommonTable from "../../components/table";
+import {
+  ADVERTISE_AREA_TYPE,
+  ADVERTISE_PUSH_STATUS,
+  ADVERTISE_PUSH_SHOW_STATUS,
+  ADVERTISE_SPACE_TYPE,
+  findConstant,
+  ConstantTag,
+  ConstantIcon,
+} from "@/assets/constant";
 
 const MyTable: FC<RouteComponentProps> = ({ history }) => {
-  const columns = [
+  let [loading, setLoading] = useState(false);
+  const columns: ColumnsType<any> = [
     {
-      title: 'Name',
-      dataIndex: 'name',
-      key: 'name',
-      render: text => <a>{text}</a>,
+        title: "序号",
+        dataIndex: "id",
+        key: "id",
+        align: "center",
     },
     {
-      title: 'Age',
-      dataIndex: 'age',
-      key: 'age',
+        title: "图片",
+        dataIndex: "logoUrl",
+        key: "logoUrl",
+        align: "center",
+        render: (text) => <MyImage src={text} width={50} />,
     },
     {
-      title: 'Address',
-      dataIndex: 'address',
-      key: 'address',
+        title: "广告标题",
+        dataIndex: "title",
+        key: "title",
+        align: "center",
     },
     {
-      title: 'Tags',
-      key: 'tags',
-      dataIndex: 'tags',
-      render: tags => (
-        <>
-          {tags.map(tag => {
-            let color = tag.length > 5 ? 'geekblue' : 'green';
-            if (tag === 'loser') {
-              color = 'volcano';
-            }
-            return (
-              <Tag color={color} key={tag}>
-                {tag.toUpperCase()}
-              </Tag>
-            );
-          })}
-        </>
-      ),
+        title: "广告来源",
+        dataIndex: "adSource",
+        key: "adSource",
+        align: "center",
+        render: (text, row) => {
+            let { adSourceSmall } = row;
+            adSourceSmall = adSourceSmall ? `/${adSourceSmall}` : "";
+            return `${text}${adSourceSmall}`;
+        },
     },
     {
-      title: 'Action',
-      key: 'action',
-      render: (text, record) => (
-        <Space size="middle">
-          <a>Invite {record.name}</a>
-          <a>Delete</a>
-        </Space>
-      ),
+        title: "使用范围",
+        dataIndex: "areaType",
+        key: "areaType",
+        align: "center",
+        render: (text) => <ConstantTag constant={findConstant(ADVERTISE_AREA_TYPE, text)} />,
     },
-  ];
-  
-  const data = [
-    {
-      key: '1',
-      name: 'John Brown',
-      age: 32,
-      address: 'New York No. 1 Lake Park',
-      tags: ['nice', 'developer'],
-    },
-    {
-      key: '2',
-      name: 'Jim Green',
-      age: 42,
-      address: 'London No. 1 Lake Park',
-      tags: ['loser'],
-    },
-    {
-      key: '3',
-      name: 'Joe Black',
-      age: 32,
-      address: 'Sidney No. 1 Lake Park',
-      tags: ['cool', 'teacher'],
-    },
-  ];
 
-    return <Table columns={columns} dataSource={data} />;
-  
-}
+    {
+        title: "广告位",
+        dataIndex: "adSpaceTitle",
+        key: "adSpaceTitle",
+        align: "center",
+        render: (text, row) => (
+            <Space>
+                <ConstantIcon constant={findConstant(ADVERTISE_SPACE_TYPE, row.adSpaceModule)} /> /{text}
+            </Space>
+        ),
+    },
+    {
+        title: "展示时段",
+        dataIndex: "timeType",
+        key: "timeType",
+        align: "center",
+        render: (text, row) => (text == 0 ? <Tag color="green">全天</Tag> : `${row.startTime}~${row.endTime}`),
+    },
+    {
+        title: "展示状态",
+        dataIndex: "showStatus",
+        key: "showStatus",
+        align: "center",
+        render: (text) => <ConstantTag constant={findConstant(ADVERTISE_PUSH_SHOW_STATUS, text)} />,
+    },
+    {
+        title: "广告状态",
+        dataIndex: "status",
+        key: "status",
+        align: "center",
+        render: (text) => <ConstantTag constant={findConstant(ADVERTISE_PUSH_STATUS, text)} />,
+    },
+    {
+        title: "创建时间",
+        dataIndex: "createTime",
+        key: "createTime",
+        align: "center",
+    },
+    // {
+    //     title: "操作",
+    //     dataIndex: "id",
+    //     key: "id",
+    //     align: "center",
+    //     render: (text, row) => (
+    //         <>
+    //             {row.status === "EXPIRED" && (
+    //                 <Button type="link" onClick={() => onRePush(text)}>
+    //                     重新发布
+    //                 </Button>
+    //             )}
+    //             {row.status !== "DELETED" && (
+    //                 <>
+    //                     <Button type="link" onClick={() => onEdit(text)}>
+    //                         编辑
+    //                     </Button>
+    //                     <Button type="link" onClick={() => onRemove(text)}>
+    //                         删除
+    //                     </Button>
+    //                 </>
+    //             )}
+    //             <Button type="link" onClick={() => onDetail(text)}>
+    //                 详情
+    //             </Button>
+    //         </>
+    //     ),
+    // },
+  ];
+  const formSearchItem: IFormType[] = [
+    {
+        label: "展示状态",
+        name: "showStatus",
+        type: "select",
+        typeParams: {
+            options: ADVERTISE_PUSH_SHOW_STATUS,
+        },
+    },
+    {
+        label: "广告状态",
+        name: "status",
+        type: "select",
+        typeParams: {
+            options: ADVERTISE_PUSH_STATUS,
+        },
+    },
+];
+  let [searchParams, setSearchParams, isReady] = useSearchParams("adPush");
+  let [data, setData] = useState<any>([]);
+  let [total, setTotal] = useState(0);
+  let [selectedRows, setSelectedRows] = useState<any[]>([]);
+
+  const getList = async () => {
+    setLoading(true);
+    let res = await tableApi.pageAdPushList(searchParams);
+    setLoading(false);
+    if (!res) return;
+    setData(res.data.content);
+    setTotal(res.data.total);
+  };
+    useEffect(() => {
+      if (!isReady) return;
+      getList();
+  }, [searchParams, isReady]);
+  return (
+    <>
+      <TableSearch formSearchItem={formSearchItem} search={setSearchParams} values={searchParams}></TableSearch>
+      <CommonTable
+        columns={columns}
+        dataSource={data}
+        pagination={{ total, ...searchParams }}
+        loading={loading}
+        onChange={({ current, pageSize }) => setSearchParams((searchParams) => ({ ...searchParams, pageNo: current, pageSize }))}
+        rowSelection={{ onChange: (selectedRowKeys) => setSelectedRows(selectedRowKeys) }}
+      />
+    </>
+  );
+};
 export default MyTable;
