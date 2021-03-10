@@ -8,7 +8,7 @@ import moment from "moment";
 
 type UseSearchParams = (key: string, initialValues?: any) => [any, React.Dispatch<any>, boolean];
 
-const useSearchParams: UseSearchParams = (key, initialValues = { pageNo: 1, pageSize: 2 }) => {
+const useSearchParams: UseSearchParams = (key, initialValues = { pageNo: 1, pageSize: 10 }) => {
     let [searchParams, setSearchParams] = useState<any>({});
     let [cacheValue, setCacheValue] = useState<any>({});
     let [isReady, setIsReady] = useState<boolean>(false);

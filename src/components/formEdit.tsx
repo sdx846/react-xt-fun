@@ -12,7 +12,7 @@ import Store from "./store";
 
 
 interface IProps {
-  formItems: Array<IFormType>;
+  formItems: any;
   onSubmit: (values: any) => void;
   formRules: FormRulesType;
   title: string;

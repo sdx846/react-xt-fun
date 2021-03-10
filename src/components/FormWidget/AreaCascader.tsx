@@ -108,20 +108,20 @@ class AreaCascader extends React.Component<IProps, IState> {
         return label.join("/");
     };
 
-    // render() {
-    //     let { loadData, displayRender, props } = this;
-    //     let { options, changeOnSelect } = this.state;
-    //     return (
-    //         <Cascader
-    //             {...props}
-    //             options={options}
-    //             changeOnSelect={changeOnSelect}
-    //             loadData={loadData}
-    //             displayRender={displayRender}
-    //             placeholder="请选择所属区域"
-    //         />
-    //     );
-    // }
+    render() {
+        let { loadData, displayRender, props } = this;
+        let { options, changeOnSelect } = this.state;
+        return (
+            <Cascader
+                // {...props}
+                options={options}
+                changeOnSelect={changeOnSelect}
+                loadData={loadData}
+                displayRender={displayRender}
+                placeholder="请选择所属区域"
+            />
+        );
+    }
 }
 
 export default AreaCascader;

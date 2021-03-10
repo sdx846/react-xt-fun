@@ -16,3 +16,11 @@ export const removeAdPush = (params) => axios.post("cms-service/ad-manage/delete
 export const clearAdPushCache = () => axios.post("cms-service/ad-manage/reloadRedisData");
 // 清理广告缓存
 export const rePushAdPush = (params) => axios.post("cms-service/ad-manage/repub/" + params);
+//查询所有停车场
+export const getAllParkList = () => axios.post("park-info-service/admin/park/list");
+// 根据停车场id获取套餐列表
+export const getSetMealByParkId = (params) => axios.post("park-info-service/admin/monthCard/getSetMealByParkId/" + params);
+// 下载导入模板
+export const downloadTemplate = () => axios.getBlob("park-info-service/admin/monthCard/importTemplate", {}, "post");
+// 导入
+export const importMonthCar = (params) => axios.uploadFile("park-info-service/admin/monthCard/importData", params);

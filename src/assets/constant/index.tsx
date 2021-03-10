@@ -46,8 +46,21 @@ export const STATUS: ConstantItem[] = [
     { value: "ACTIVE", label: "有效", color: success },
     { value: "INVALID", label: "无效", color: error },
 ];
-
-
+//合作方优惠单位
+export const PARTNER_DISCOUNT_UNIT: ConstantItem[] = [
+  { value: "DAY", label: "日", color: processing },
+  { value: "WEEK", label: "周", color: processing },
+  { value: "MONTH", label: "月", color: success },
+  { value: "YEAR", label: "年", color: error },
+];
+//停车场支付方式
+export const PARK_PAY_TYPE: ConstantItem[] = [
+  { value: "UNION_PAY", label: "银联", icon: <MyIcon type="icon-yl" /> },
+  { value: "FU_DIAN_PAY", label: "富滇", icon: <MyIcon type="icon-fdzf" /> },
+  { value: "ZH_PAY", label: "中行", icon: <MyIcon type="icon-zgyh" /> },
+  { value: "YT_PAY", label: "云停", icon: <MyIcon type="icon-qb" /> },
+  { value: "SELF_SUPPORT", label: "自营", icon: <MyIcon type="icon-xxzf" /> },
+];
 // 广告位所属模块
 export const ADVERTISE_SPACE_TYPE: ConstantItem[] = [
   { value: "H5", label: "公众号", icon: <MyIcon type="icon-wx" /> },
