@@ -57,7 +57,7 @@ const routes: MenuMapItem = {
             title: "菜单权限管理",
             exact: true,
             isMenu: true,
-            sign: "ZYGL",
+            sign: "CDQXGL",
             component: React.lazy(() => import("../pages/system/rightMenu")),
         },
     ],

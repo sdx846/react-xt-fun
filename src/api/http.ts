@@ -14,8 +14,8 @@ NProgress.configure({ easing: "ease", speed: 800, showSpinner: true });
 
 const baseURL =
   process.env.NODE_ENV === 'development'
-    ? 'https://test.easy-parking.cn/easypark/'
-    : 'http://' + window.location.host + '/easypark/';
+    ? 'https://xxx/'
+    : 'http://' + window.location.host + '/xxx/';
 const axiosInstance = axios.create({
     baseURL,
     timeout: 30000,

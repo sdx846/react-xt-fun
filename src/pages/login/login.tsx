@@ -4,7 +4,8 @@ import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { FormRulesType, RouteComponentProps} from "../../assets/typings";
 import style from "./login.module.css";
 import * as loginApi from '../../api/request/login';
-import {localStore,sessionStore} from "../../utils/storage";
+import { localStore, sessionStore } from "../../utils/storage";
+import userInfo from "@/api/request/userInfo.json";
 
 const Login: FC<RouteComponentProps> = ({ history }) => {
   const [form] = Form.useForm();
@@ -27,31 +28,30 @@ const Login: FC<RouteComponentProps> = ({ history }) => {
     }
 }, [form]);
   const getVerifyCodeImg=()=>{
-    loginApi.getVerifyCode().then(res => {
-      setVerifyImg(`data:image/bmp;base64,${res.data.imgBase64}`);
-      setUuid(res.data.uuid);
-    })
+    // loginApi.getVerifyCode().then(res => {
+    //   setVerifyImg(`data:image/bmp;base64,${res.data.imgBase64}`);
+    //   setUuid(res.data.uuid);
+    // })
   }
-  const getUserInfo = () => {
-    loginApi.getLoginUserInfo().then(res => {
-      const { code, data} = res;
-      if (code !== 1) {
-        return;
-      }
-      localStore.setItem("userInfo", data);
-      message.success("登录成功");
-      history.push({ pathname: "/home" });
-    });
+  const getUserInfo = async() => {
+    // let res = await loginApi.getLoginUserInfo();
+    // const { code, data} = res;
+    // if (code !== 1) {
+    //   return;
+    // }
+    localStore.setItem("userInfo", userInfo.data);
+    message.success("登录成功");
+    history.push({ pathname: "/home" });
   }
   const handleRemember = (e: any) => {
     setRemember(e.target.checked);
   }
   const onSubmit = async(values: any) => { 
-    setLoading(true);
-    let res = await loginApi.login({ ...values, uuid: uuid });
-    setLoading(false);
-    if (!res) return;
-    localStore.setItem("token", res.data.token);
+    // setLoading(true);
+    // let res = await loginApi.login({ ...values, uuid: uuid });
+    // setLoading(false);
+    // if (!res) return;
+    localStore.setItem("token", 'token1111');
     if (remember) {
       localStore.setItem('loginInfo', moData(values));
     } else {

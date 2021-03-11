@@ -1,7 +1,4 @@
 import React, { useState, useEffect, FC } from "react";
-import { useLocation } from "react-router-dom";
-import { Layout, Avatar, Dropdown, Breadcrumb, Modal } from "antd";
-import { MenuUnfoldOutlined, MenuFoldOutlined } from "@ant-design/icons";
 import { POSITIVE_INT } from "@/assets/constant/regEx";
 import * as tableApi from '@/api/request/table';
 import {

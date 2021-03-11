@@ -1,7 +1,6 @@
 import React, { useState, useEffect, FC } from "react";
-import { Table, Tag, Space,Button,Modal,message } from "antd";
-import { TableProps, ColumnsType } from "antd/lib/table";
-import { PaginationProps } from "antd/lib/pagination";
+import { Tag, Space,Button,Modal,message } from "antd";
+import { ColumnsType } from "antd/lib/table";
 import { PlusOutlined, DeleteOutlined } from "@ant-design/icons";
 import TableSearch from "@/components/tableSearch";
 import hooks from '@/hooks'

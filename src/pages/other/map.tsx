@@ -1,7 +1,5 @@
 import React, { useState, useEffect, FC } from "react";
-import { DatePicker, Space } from 'antd';
-import { MenuUnfoldOutlined, MenuFoldOutlined } from "@ant-design/icons";
-import { FormRulesType, RouteComponentProps} from "../../assets/typings";
+import { RouteComponentProps} from "../../assets/typings";
 import BaiduMap from "../../components/baiduMap";
 
 const MyMap: FC<RouteComponentProps> = ({ history }) => {
